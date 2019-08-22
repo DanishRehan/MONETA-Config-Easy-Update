@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -25,7 +26,19 @@ namespace Connection_String
             //    string fullName = foundFile.FullName;
             //    Console.WriteLine(fullName);
             //}
-
+            //MessageBox.Show(this.Controls.GetType().Name);
+            int j = 0;
+            while (j < this.Controls.Count)
+            {
+                //MessageBox.Show(this.Controls.GetType().Name);
+                var labelToRemove = this.Controls["lbl1" + j];
+                var buttonToRemove = this.Controls["btn1" + j];
+                this.Controls.Remove(labelToRemove);
+                this.Controls.Remove(buttonToRemove);
+                j++;
+            }
+            //this.Update();
+            //MessageBox.Show(this.Controls.Count.ToString());
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             dialog.InitialDirectory = "D:\\Environments\\Application\\ASKARI\\MonetaBackOffice\\Applications";
             dialog.IsFolderPicker = true;
@@ -44,13 +57,15 @@ namespace Connection_String
                 //Create label
                 Label label = new Label();
                 label.Text = String.Format(spl[spl.Length - 2] + " - Web.config found.");
+                label.Name = "lbl1" + i;
                 label.AutoSize = true;
-                Console.WriteLine(spl[spl.Length - 2]);
+                //Console.WriteLine(spl[spl.Length - 2]);
                 //Position label on screen
                 label.Left = 20;
                 label.Top = (i + 1) * 22;
                 Button btn = new Button();
                 btn.Text = String.Format("Replace");
+                btn.Name = "btn1" + i;
                 btn.Left = 240;
                 btn.Top = (i + 1) * 22;
                 //Create textbox
@@ -63,6 +78,7 @@ namespace Connection_String
                 this.Controls.Add(btn);
                 //this.Controls.Add(textBox);
             }
+            //MessageBox.Show(this.Controls.Count.ToString());
         }
 
         private void Rep_Click(object sender, EventArgs e)
