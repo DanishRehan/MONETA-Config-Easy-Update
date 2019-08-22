@@ -30,15 +30,12 @@ namespace Connection_String
             int j = 0;
             while (j < this.Controls.Count)
             {
-                //MessageBox.Show(this.Controls.GetType().Name);
                 var labelToRemove = this.Controls["lbl1" + j];
                 var buttonToRemove = this.Controls["btn1" + j];
                 this.Controls.Remove(labelToRemove);
                 this.Controls.Remove(buttonToRemove);
                 j++;
             }
-            //this.Update();
-            //MessageBox.Show(this.Controls.Count.ToString());
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             dialog.InitialDirectory = "D:\\Environments\\Application\\ASKARI\\MonetaBackOffice\\Applications";
             dialog.IsFolderPicker = true;
@@ -90,17 +87,16 @@ namespace Connection_String
                 ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap();
                 configFileMap.ExeConfigFilename = configFile;
                 System.Configuration.Configuration config = ConfigurationManager.OpenMappedExeConfiguration(configFileMap, ConfigurationUserLevel.None);
-                bool key = config.AppSettings.Settings.AllKeys.Contains("ConnString");
+                bool key = config.AppSettings.Settings.AllKeys.Contains(xmlCombo.Text);
                 if (key)
                 {
-                    config.AppSettings.Settings["ConnString"].Value = repText.Text;
+                    config.AppSettings.Settings[xmlCombo.Text].Value = repText.Text;
                     config.Save();
                 }
             }
 
-            if (reg.Checked)
+            if (regCheckBox.Checked)
             {
-
                 using (var hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
                 using (var myKey1 = hklm.OpenSubKey(@"SOFTWARE\TPS\Iris", true))
                 {
@@ -122,9 +118,22 @@ namespace Connection_String
                     }
                 }
             }
-            label1.Visible = true;
-            label1.BackColor = System.Drawing.Color.Red;
             label1.Text = "Done !!!";
+            label1.Visible = true;
+            label1.BackColor = System.Drawing.Color.Green;
+        }
+
+        private void XmlCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(!(xmlCombo.SelectedItem.ToString() == "ConnString"))
+            {
+                regCheckBox.Checked = false;
+                regCheckBox.Enabled = false;
+            }
+            else
+            {
+                regCheckBox.Enabled = true;
+            }
         }
     }
 }

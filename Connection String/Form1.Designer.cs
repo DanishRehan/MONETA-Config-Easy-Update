@@ -33,14 +33,16 @@
             this.rep = new System.Windows.Forms.Button();
             this.repText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.dirLabel = new System.Windows.Forms.Label();
+            this.repLabel = new System.Windows.Forms.Label();
+            this.regCheckBox = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.reg = new System.Windows.Forms.CheckBox();
+            this.xmlCombo = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // browse
             // 
-            this.browse.Location = new System.Drawing.Point(460, 255);
+            this.browse.Location = new System.Drawing.Point(562, 255);
             this.browse.Name = "browse";
             this.browse.Size = new System.Drawing.Size(75, 23);
             this.browse.TabIndex = 0;
@@ -50,14 +52,14 @@
             // 
             // pathText
             // 
-            this.pathText.Location = new System.Drawing.Point(169, 257);
+            this.pathText.Location = new System.Drawing.Point(181, 257);
             this.pathText.Name = "pathText";
-            this.pathText.Size = new System.Drawing.Size(262, 20);
+            this.pathText.Size = new System.Drawing.Size(375, 20);
             this.pathText.TabIndex = 1;
             // 
             // rep
             // 
-            this.rep.Location = new System.Drawing.Point(460, 306);
+            this.rep.Location = new System.Drawing.Point(562, 321);
             this.rep.Name = "rep";
             this.rep.Size = new System.Drawing.Size(75, 23);
             this.rep.TabIndex = 2;
@@ -67,59 +69,101 @@
             // 
             // repText
             // 
-            this.repText.Location = new System.Drawing.Point(169, 306);
+            this.repText.Location = new System.Drawing.Point(181, 322);
             this.repText.Name = "repText";
-            this.repText.Size = new System.Drawing.Size(262, 20);
+            this.repText.Size = new System.Drawing.Size(375, 20);
             this.repText.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(284, 368);
+            this.label1.Location = new System.Drawing.Point(357, 393);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "label1";
             this.label1.Visible = false;
             // 
+            // dirLabel
+            // 
+            this.dirLabel.AutoSize = true;
+            this.dirLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dirLabel.Location = new System.Drawing.Point(46, 261);
+            this.dirLabel.Name = "dirLabel";
+            this.dirLabel.Size = new System.Drawing.Size(75, 16);
+            this.dirLabel.TabIndex = 5;
+            this.dirLabel.Text = "Directory:";
+            // 
+            // repLabel
+            // 
+            this.repLabel.AutoSize = true;
+            this.repLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.repLabel.Location = new System.Drawing.Point(46, 326);
+            this.repLabel.Name = "repLabel";
+            this.repLabel.Size = new System.Drawing.Size(115, 16);
+            this.repLabel.TabIndex = 6;
+            this.repLabel.Text = "Replace Value:";
+            // 
+            // regCheckBox
+            // 
+            this.regCheckBox.AutoSize = true;
+            this.regCheckBox.Location = new System.Drawing.Point(326, 292);
+            this.regCheckBox.Name = "regCheckBox";
+            this.regCheckBox.Size = new System.Drawing.Size(107, 17);
+            this.regCheckBox.TabIndex = 7;
+            this.regCheckBox.Text = "Replace Registry";
+            this.regCheckBox.UseVisualStyleBackColor = true;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(46, 257);
+            this.label2.Location = new System.Drawing.Point(46, 294);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 16);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Directory:";
+            this.label2.Size = new System.Drawing.Size(71, 16);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "XML Key:";
             // 
-            // label3
+            // xmlCombo
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(46, 307);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(105, 16);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Replace With:";
-            // 
-            // reg
-            // 
-            this.reg.AutoSize = true;
-            this.reg.Location = new System.Drawing.Point(559, 311);
-            this.reg.Name = "reg";
-            this.reg.Size = new System.Drawing.Size(107, 17);
-            this.reg.TabIndex = 7;
-            this.reg.Text = "Replace Registry";
-            this.reg.UseVisualStyleBackColor = true;
+            this.xmlCombo.FormattingEnabled = true;
+            this.xmlCombo.Items.AddRange(new object[] {
+            "ConnString",
+            "HostBankIMD",
+            "HostBankCode",
+            "HostBankName",
+            "HostBankShortCode",
+            "drives",
+            "drivesRejdir",
+            "driveExport",
+            "defaultExpPath",
+            "driveFeedBack",
+            "driveDisbursement",
+            "driveExpiredTransation",
+            "drivePassedFile",
+            "driveFailedFile",
+            "driveCSVFile",
+            "defaultcsvPath",
+            "defaultPassDir",
+            "defaultFailDir",
+            "defaultRTGSDir",
+            "defaultRTGSDirAfterApend"});
+            this.xmlCombo.Location = new System.Drawing.Point(181, 289);
+            this.xmlCombo.Name = "xmlCombo";
+            this.xmlCombo.Size = new System.Drawing.Size(138, 21);
+            this.xmlCombo.TabIndex = 9;
+            this.xmlCombo.SelectedIndexChanged += new System.EventHandler(this.XmlCombo_SelectedIndexChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.reg);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.xmlCombo);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.regCheckBox);
+            this.Controls.Add(this.repLabel);
+            this.Controls.Add(this.dirLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.repText);
             this.Controls.Add(this.rep);
@@ -139,9 +183,11 @@
         private System.Windows.Forms.Button rep;
         private System.Windows.Forms.TextBox repText;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label dirLabel;
+        private System.Windows.Forms.Label repLabel;
+        private System.Windows.Forms.CheckBox regCheckBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox reg;
+        private System.Windows.Forms.ComboBox xmlCombo;
     }
 }
 
