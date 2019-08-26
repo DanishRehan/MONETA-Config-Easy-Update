@@ -41,7 +41,7 @@ namespace Connection_String
                 }
             }
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = "D:\\Environments\\Application\\ASKARI\\MonetaBackOffice\\Applications";
+            dialog.InitialDirectory = "C:\\";
             dialog.IsFolderPicker = true;
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
@@ -87,17 +87,17 @@ namespace Connection_String
                     Label label = new Label();
                     label.Text = String.Format(spl[spl.Length - 2] + " - Web.config found.");
                     label.Name = "lbl1" + i;
-                    Console.WriteLine(label.Name);
+                    //Console.WriteLine(label.Name);
                     label.AutoSize = true;
                     //Console.WriteLine(spl[spl.Length - 2]);
                     //Position label on screen
-                    label.Left = 20;
+                    label.Left = 300;
                     label.Top = (i + 1) * 22;
-                    Button btn = new Button();
-                    btn.Text = String.Format("Replace");
-                    btn.Name = "btn1" + i;
-                    btn.Left = 240;
-                    btn.Top = (i + 1) * 22;
+                    //Button btn = new Button();
+                    //btn.Text = String.Format("Replace");
+                    //btn.Name = "btn1" + i;
+                    //btn.Left = 240;
+                    //btn.Top = (i + 1) * 22;
                     //Create textbox
                     //TextBox textBox = new TextBox();
                     //Position textbox on screen
@@ -124,7 +124,7 @@ namespace Connection_String
                     label.AutoSize = true;
                     //Console.WriteLine(spl[spl.Length - 2]);
                     //Position label on screen
-                    label.Left = 20;
+                    label.Left = 300;
                     label.Top = (i + 1) * 22;
                     ///Add controls to form
                     this.Controls.Add(label);

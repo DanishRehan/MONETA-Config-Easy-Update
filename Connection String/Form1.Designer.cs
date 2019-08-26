@@ -215,8 +215,9 @@
             this.Controls.Add(this.rep);
             this.Controls.Add(this.pathText);
             this.Controls.Add(this.browse);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Form1";
-            this.Text = "XML String Changer";
+            this.Text = "MONETA XML String Changer - Danish Rehan";
             this.ResumeLayout(false);
             this.PerformLayout();
 
