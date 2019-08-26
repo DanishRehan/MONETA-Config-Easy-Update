@@ -12,4 +12,3 @@ C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debu
 C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.csproj.CopyComplete
 C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.exe
 C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.pdb
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.csprojAssemblyReference.cache
