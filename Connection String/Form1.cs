@@ -43,11 +43,18 @@ namespace Connection_String
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             dialog.InitialDirectory = "C:\\";
             dialog.IsFolderPicker = true;
-            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            try
             {
-                //MessageBox.Show("You selected: " + dialog.FileName);
-                pathText.Text = directory = dialog.FileName;
-                rep.Enabled = true;
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    //MessageBox.Show("You selected: " + dialog.FileName);
+                    pathText.Text = directory = dialog.FileName;
+                    rep.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
 
             if (radioWeb.Checked)
@@ -65,13 +72,19 @@ namespace Connection_String
 
             if(radioWin.Checked)
             {
-                files = Directory.EnumerateFiles(directory, "*.config", SearchOption.AllDirectories)
-                .Where(s => s.EndsWith("AMLService.exe.config") || s.EndsWith("AutoCleanseService.exe.config") ||
-                s.EndsWith("DailyExportService.exe.config") || s.EndsWith("FundsTransferService.exe.config") ||
-                s.EndsWith("ImportService.exe.config") || s.EndsWith("VMSBOContinousMailing.exe.config") ||
-                s.EndsWith("ProcessingService.exe.config") || s.EndsWith("SmsService.exe.config") ||
-                s.EndsWith("ThirdPartyExportService.exe.config")
-                );
+                try
+                {
+                    files = Directory.EnumerateFiles(directory, "*.config", SearchOption.AllDirectories)
+                    .Where(s => s.EndsWith("AMLService.exe.config") || s.EndsWith("AutoCleanseService.exe.config") ||
+                    s.EndsWith("DailyExportService.exe.config") || s.EndsWith("FundsTransferService.exe.config") ||
+                    s.EndsWith("ImportService.exe.config") || s.EndsWith("VMSBOContinousMailing.exe.config") ||
+                    s.EndsWith("ProcessingService.exe.config") || s.EndsWith("SmsService.exe.config") ||
+                    s.EndsWith("ThirdPartyExportService.exe.config"));
+                }
+                catch (Exception ex)
+                {
+
+                }
                 /*foreach (string a in files)
                 {
                     Console.WriteLine(a);
@@ -113,22 +126,29 @@ namespace Connection_String
             if (files != null)
             {
                 int i = 0;
-                foreach (string a in files)
+                try
                 {
-                    string[] spl = a.Split('\\');
-                    //Create label
-                    //Console.WriteLine(a);
-                    Label label = new Label();
-                    label.Text = String.Format(spl[spl.Length - 2] + " - exe.config found.");
-                    label.Name = "lbl1" + i;
-                    label.AutoSize = true;
-                    //Console.WriteLine(spl[spl.Length - 2]);
-                    //Position label on screen
-                    label.Left = 300;
-                    label.Top = (i + 1) * 22;
-                    ///Add controls to form
-                    this.Controls.Add(label);
-                    i++;
+                    foreach (string a in files)
+                    {
+                        string[] spl = a.Split('\\');
+                        //Create label
+                        //Console.WriteLine(a);
+                        Label label = new Label();
+                        label.Text = String.Format(spl[spl.Length - 2] + " - exe.config found.");
+                        label.Name = "lbl1" + i;
+                        label.AutoSize = true;
+                        //Console.WriteLine(spl[spl.Length - 2]);
+                        //Position label on screen
+                        label.Left = 300;
+                        label.Top = (i + 1) * 22;
+                        ///Add controls to form
+                        this.Controls.Add(label);
+                        i++;
+                    }
+                }
+                catch
+                {
+
                 }
             }
             //MessageBox.Show(this.Controls.Count.ToString());
