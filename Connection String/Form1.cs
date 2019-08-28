@@ -2,10 +2,10 @@
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Connection_String
 {
@@ -102,7 +102,7 @@ namespace Connection_String
                     label.Name = "lbl1" + i;
                     //Console.WriteLine(label.Name);
                     label.AutoSize = true;
-                    //Console.WriteLine(spl[spl.Length - 2]);
+                    //Console.WriteLine(spl[spl.Length - 1]);
                     //Position label on screen
                     label.Left = 300;
                     label.Top = (i + 1) * 22;
@@ -160,7 +160,7 @@ namespace Connection_String
             {
                 for (int i = 0; i < entries.Length; i++)
                 {
-                    string appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                    /*string appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
                     string configFile = System.IO.Path.Combine(entries[i], "");
                     ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap();
                     configFileMap.ExeConfigFilename = configFile;
@@ -170,6 +170,21 @@ namespace Connection_String
                     {
                         config.AppSettings.Settings[xmlCombo.Text].Value = repText.Text;
                         config.Save();
+                    }*/
+                    var doc = XDocument.Load(entries[i]);
+                    try
+                    {
+                        var myList = from appNode in doc.Descendants("appSettings").Elements()
+                                    where appNode.Attribute("key").Value == xmlCombo.Text
+                                    select appNode;
+                        var myElement = myList.FirstOrDefault();
+                        myElement.Attribute("value").SetValue(repText.Text);
+                        doc.Save(entries[i]);
+                    }
+                    catch
+                    {
+                        exText.Text = entries[i] + " - " + xmlCombo.Text + " not found.";
+                        exText.Visible = true;
                     }
                 }
             }
@@ -177,7 +192,7 @@ namespace Connection_String
             {
                 foreach (string file in files)
                 {
-                    string appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                    /*string appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
                     string configFile = System.IO.Path.Combine(file, "");
                     ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap();
                     configFileMap.ExeConfigFilename = configFile;
@@ -187,6 +202,21 @@ namespace Connection_String
                     {
                         config.AppSettings.Settings[xmlCombo.Text].Value = repText.Text;
                         config.Save();
+                    }*/
+                    var doc = XDocument.Load(file);
+                    try
+                    {
+                        var myList = from appNode in doc.Descendants("appSettings").Elements()
+                                     where appNode.Attribute("key").Value == xmlCombo.Text
+                                     select appNode;
+                        var myElement = myList.FirstOrDefault();
+                        myElement.Attribute("value").SetValue(repText.Text);
+                        doc.Save(file);
+                    }
+                    catch
+                    {
+                        exText.Text = file + " - " + xmlCombo.Text + " not found.";
+                        exText.Visible = true;
                     }
                 }
             }
