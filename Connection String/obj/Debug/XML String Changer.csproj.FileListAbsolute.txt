@@ -12,4 +12,11 @@ C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debu
 C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.csproj.CopyComplete
 C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.exe
 C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.pdb
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.csprojAssemblyReference.cache
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.csprojAssemblyReference.cache
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\Microsoft.Web.Administration.dll
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\Microsoft.Win32.Registry.dll
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\System.Reflection.TypeExtensions.dll
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\System.Security.Principal.Windows.dll
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\System.ServiceProcess.ServiceController.dll
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\System.Diagnostics.DiagnosticSource.xml

@@ -168,9 +168,8 @@
             this.exText.ForeColor = System.Drawing.Color.Red;
             this.exText.Location = new System.Drawing.Point(12, 358);
             this.exText.Name = "exText";
-            this.exText.Size = new System.Drawing.Size(54, 13);
+            this.exText.Size = new System.Drawing.Size(0, 13);
             this.exText.TabIndex = 10;
-            this.exText.Text = "Exception";
             this.exText.Visible = false;
             // 
             // radioWeb
@@ -201,6 +200,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(835, 467);
             this.Controls.Add(this.radioWin);
             this.Controls.Add(this.radioWeb);
