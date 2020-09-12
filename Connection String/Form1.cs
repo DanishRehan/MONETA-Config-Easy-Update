@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Management;
 using System.ServiceProcess;
@@ -12,56 +13,50 @@ namespace Connection_String
 {
     public partial class Form1 : Form
     {
-        private string directory;
+        //private string directory;
 
         //string[] entries;
         private List<string> entries = new List<string>();
+
+        private List<string> websites = new List<string>();
+        private List<string> apps = new List<string>();
+        private ServerManager sm = new ServerManager();
+        private string lastClick = "none";
+        private Button btnHover = null;
+
         private List<string> services = new List<string>(new string[] { "RPS AMLService", "RPS AutoCleanseService", "MonetaDailyExportService",
         "IRGIService", "VMSBOContinousMailing", "IRGMessagingService", "IRProcessingService", "IRGSAFFTService", "RPS Third Party Export Service", "MonetaLoyaltySAF"});
-        private IEnumerable<string> files;
 
         public Form1()
         {
             InitializeComponent();
             regCheckBox.Enabled = false;
-            rep.Enabled = false;
-            radioWeb.Checked = true;
+            btnUpdate.Enabled = false;
+            // radioWeb.Checked = true;
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            ServerManager sm = new ServerManager();
-            //exText.Text = sm.Sites["PayoonerRevAPI"].Applications["/Content"].VirtualDirectories["/"].PhysicalPath;
-            /* foreach (Site s in sm.Sites)
-             {
-                 Console.WriteLine("Site {0}", s.Name);
-
-                 foreach (Microsoft.Web.Administration.Application app in s.Applications)
-                 {
-                     Console.WriteLine("\tApplication: {0}", app.Path);
-
-                     foreach (VirtualDirectory virtDir in app.VirtualDirectories)
-                     {
-                         Console.WriteLine("\t\tVirtual Dir: {0}", virtDir.Path);
-                     }
-                 }
-             }*/
-            //entries = null;
             entries.Clear();
-            files = null;
+            websites.Clear();
+            apps.Clear();
+            checkedListBox1.Items.Clear();
             msgText.Visible = false;
             exText.Text = "";
             exText.Visible = false;
+            lastClick = "searchIIS";
 
-            for (int i = 0; i < this.Controls.Count; i++)
+            //Searching for labels and removing them
+            int panelCount = secondPanel.Controls.Count;
+            for (int i = 0; i < panelCount; i++)
             {
-                if (this.Controls.ContainsKey("lbl1" + i))
+                if (secondPanel.Controls.ContainsKey("lbl1" + i))
                 {
                     System.Windows.Forms.Control[] ad = new System.Windows.Forms.Control[1];
-                    ad = Controls.Find("lbl1" + i, true);
+                    ad = secondPanel.Controls.Find("lbl1" + i, true);
                     ad[0].Dispose();
-                    var a = Controls.Find("lbl1" + i, true);
                 }
+                //Console.WriteLine("Inside: " + i + "Count: " + panelCount);
             }
             /*CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             dialog.InitialDirectory = "C:\\";
@@ -78,42 +73,38 @@ namespace Connection_String
             catch (Exception ex)
             {
             }*/
-
-            if (radioWeb.Checked)
+            try
             {
-                try
+                //List<string> websites = new List<string>();
+                //List<string> apps = new List<string>();
+                //exText.Text = sm.Sites["PayoonerRevAPI"].Applications["/Content"].VirtualDirectories["/"].PhysicalPath;
+                foreach (Site s in sm.Sites)
                 {
-                    List<string> websites = new List<string>();
-                    List<string> apps = new List<string>();
-                    //exText.Text = sm.Sites["PayoonerRevAPI"].Applications["/Content"].VirtualDirectories["/"].PhysicalPath;
-                    foreach (Site s in sm.Sites)
+                    websites.Add(s.Name);
+                    checkedListBox1.Items.Add(s.Name);
+                    /*foreach (Microsoft.Web.Administration.Application app in s.Applications)
                     {
-                        websites.Add(s.Name);
-                        foreach (Microsoft.Web.Administration.Application app in s.Applications)
+                        if (s.Name == "Default Web Site")
                         {
-                            if (s.Name == "Default Web Site")
-                            {
-                                apps.Add(app.Path);
-                            }
+                            apps.Add(app.Path);
                         }
-                    }
-                    for (int i = 0; i < apps.Count - 1; i++)
-                    {
-                        if (apps[i] != "/")
-                        {
-                            string temp = sm.Sites[websites[0]].Applications[apps[i]].VirtualDirectories["/"].PhysicalPath + "\\Web.config";
-                            entries.Add(temp);
-                        }
-                    }
-                    rep.Enabled = true;
+                    }*/
                 }
-                catch (Exception ex)
+                /*for (int i = 0; i < apps.Count - 1; i++)
                 {
-                    Console.WriteLine(ex);
+                    if (apps[i] != "/")
+                    {
+                        string temp = sm.Sites[websites[0]].Applications[apps[i]].VirtualDirectories["/"].PhysicalPath + "\\Web.config";
+                        entries.Add(temp);
+                    }
                 }
+                rep.Enabled = true;*/
             }
-
-            if (radioWin.Checked)
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            /*if (radioWin.Checked)
             {
                 /*try
                 {
@@ -127,33 +118,33 @@ namespace Connection_String
                 catch (Exception ex)
                 {
                 }*/
-                //string ServiceName = "RPS Third Party Export Service";
-                for (int i = 0; i < services.Count; i++)
+            //string ServiceName = "RPS Third Party Export Service";
+            /*for (int i = 0; i < services.Count; i++)
+            {
+                ServiceController ctl = ServiceController.GetServices().FirstOrDefault(s => s.ServiceName == services[i]);
+                if (ctl != null)
                 {
-                    ServiceController ctl = ServiceController.GetServices().FirstOrDefault(s => s.ServiceName == services[i]);
-                    if (ctl != null)
+                    using (ManagementObject wmiService = new ManagementObject("Win32_Service.Name='" + services[i] + "'"))
                     {
-                        using (ManagementObject wmiService = new ManagementObject("Win32_Service.Name='" + services[i] + "'"))
-                        {
-                            wmiService.Get();
-                            string currentserviceExePath = wmiService["PathName"].ToString() + ".config";
-                            currentserviceExePath = currentserviceExePath.Replace("\"", "");
-                            Console.WriteLine(currentserviceExePath);
-                            exText.Text += currentserviceExePath + "\n";
-                            exText.Visible = true;
-                            entries.Add(currentserviceExePath);
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Not installed");
-                        exText.Text += services[i] + " not found.\n";
+                        wmiService.Get();
+                        string currentserviceExePath = wmiService["PathName"].ToString() + ".config";
+                        currentserviceExePath = currentserviceExePath.Replace("\"", "");
+                        Console.WriteLine(currentserviceExePath);
+                        exText.Text += currentserviceExePath + "\n";
                         exText.Visible = true;
+                        entries.Add(currentserviceExePath);
                     }
                 }
+                else
+                {
+                    //Console.WriteLine("Not installed");
+                    exText.Text += services[i] + " not found.\n";
+                    exText.Visible = true;
+                }
             }
+        }*/
 
-            if (entries != null)
+            /*if (entries != null)
             {
                 for (int i = 0; i < entries.Count; i++)
                 {
@@ -180,47 +171,22 @@ namespace Connection_String
                     //textBox.Left = 120;
                     //textBox.Top = (i + 1) * 20;
                     ///Add controls to form
-                    this.Controls.Add(label);
+                    secondPanel.Controls.Add(label);
                     //this.Controls.Add(btn);
                     //this.Controls.Add(textBox);
                 }
-                rep.Enabled = true;
-            }
-
-            /*if (files != null)
-            {
-                int i = 0;
-                try
-                {
-                    foreach (string a in files)
-                    {
-                        string[] spl = a.Split('\\');
-                        //Create label
-                        //Console.WriteLine(a);
-                        Label label = new Label();
-                        label.Text = String.Format(spl[spl.Length - 2] + " - exe.config found.");
-                        label.Name = "lbl1" + i;
-                        label.AutoSize = true;
-                        //Console.WriteLine(spl[spl.Length - 2]);
-                        //Position label on screen
-                        label.Left = 300;
-                        label.Top = (i + 1) * 22;
-                        ///Add controls to form
-                        this.Controls.Add(label);
-                        i++;
-                    }
-                }
-                catch
-                {
-                }
+                rep.Enabled = false;
             }*/
-            //MessageBox.Show(this.Controls.Count.ToString());
+            btnUpdate.Enabled = false;
         }
 
         private void Rep_Click(object sender, EventArgs e)
         {
-            if (radioWeb.Checked)
+            exText.Text = "";
+            exText.Visible = false;
+            if (lastClick.Equals("web"))
             {
+                Console.WriteLine("Inside web.");
                 for (int i = 0; i < entries.Count; i++)
                 {
                     /*string appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
@@ -234,8 +200,6 @@ namespace Connection_String
                         config.AppSettings.Settings[xmlCombo.Text].Value = repText.Text;
                         config.Save();
                     }*/
-                    Console.WriteLine(entries[i]);
-                    //var doc = XDocument.Load(entries[i]);
                     try
                     {
                         var doc = XDocument.Load(entries[i]);
@@ -256,8 +220,9 @@ namespace Connection_String
                     }
                 }
             }
-            else
+            else if (lastClick.Equals("windows"))
             {
+                Console.WriteLine("Inside windows.");
                 /*foreach (string file in files)
                 {
                     /*string appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
@@ -273,9 +238,10 @@ namespace Connection_String
                     }*/
                 for (int i = 0; i < entries.Count; i++)
                 {
-                    var doc = XDocument.Load(entries[i]);
+                    //var doc = XDocument.Load(entries[i]);
                     try
                     {
+                        var doc = XDocument.Load(entries[i]);
                         var myList = from appNode in doc.Descendants("appSettings").Elements()
                                      where appNode.Attribute("key").Value == xmlCombo.Text
                                      select appNode;
@@ -285,7 +251,8 @@ namespace Connection_String
                     }
                     catch
                     {
-                        exText.Text = entries[i] + " - " + xmlCombo.Text + " not found.\n";
+                        //Console.WriteLine(entries[i]);
+                        exText.Text += entries[i] + " - " + xmlCombo.Text + " not found.\n";
                         exText.Visible = true;
                     }
                 }
@@ -328,7 +295,8 @@ namespace Connection_String
 
         private void XmlCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!(xmlCombo.SelectedItem.ToString() == "ConnString"))
+            Console.WriteLine(lastClick);
+            if (xmlCombo.SelectedItem != null && !(xmlCombo.SelectedItem.ToString() == "ConnString"))
             {
                 regCheckBox.Checked = false;
                 regCheckBox.Enabled = false;
@@ -337,38 +305,253 @@ namespace Connection_String
             {
                 regCheckBox.Enabled = true;
             }
+
+            if (xmlCombo.SelectedItem != null && lastClick != "none" && lastClick != "searchIIS")
+            {
+                //Console.WriteLine(lastClick);
+                if (checkedListBox1.SelectedIndex == -1)
+                {
+                    lastClick = "windows";
+                }
+                else
+                {
+                    lastClick = "web";
+                }
+                btnUpdate.Enabled = true;
+            }
+            else
+            {
+                btnUpdate.Enabled = false;
+            }
         }
 
-        private void RegCheckBox_CheckedChanged(object sender, EventArgs e)
+        /*private void RegCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            /*if (xmlCombo.SelectedItem == null)
+            if (xmlCombo.SelectedItem == null)
             {
                 regCheckBox.Checked = false;
                 regCheckBox.Enabled = false;
             } else
             {
                 regCheckBox.Checked = true;
-            }*/
-        }
+            }
+        }*/
 
-        private void RadioWeb_CheckedChanged(object sender, EventArgs e)
+        /*private void RadioWeb_CheckedChanged(object sender, EventArgs e)
         {
             if (radioWeb.Checked)
             {
                 radioWin.Checked = false;
-                directory = pathText.Text = "";
-                rep.Enabled = false;
+                //directory = pathText.Text = "";
+                btnUpdate.Enabled = false;
             }
-        }
+        }*/
 
-        private void RadioWin_CheckedChanged(object sender, EventArgs e)
+        /*private void RadioWin_CheckedChanged(object sender, EventArgs e)
         {
             if (radioWin.Checked)
             {
                 radioWeb.Checked = false;
-                directory = pathText.Text = "";
-                rep.Enabled = false;
+                //directory = pathText.Text = "";
+                btnUpdate.Enabled = false;
             }
+        }*/
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            string selWeb = "";
+            btnUpdate.Enabled = false;
+            entries.Clear();
+            apps.Clear();
+            lastClick = "web";
+
+            //Searching for labels and removing them
+            int panelCount = secondPanel.Controls.Count;
+            for (int i = 0; i < panelCount; i++)
+            {
+                if (secondPanel.Controls.ContainsKey("lbl1" + i))
+                {
+                    System.Windows.Forms.Control[] ad = new System.Windows.Forms.Control[1];
+                    ad = secondPanel.Controls.Find("lbl1" + i, true);
+                    ad[0].Dispose();
+                }
+            }
+
+            if (checkedListBox1.SelectedIndex != -1)
+            {
+                for (int i = 0; i < checkedListBox1.Items.Count; i++)
+                {
+                    if (checkedListBox1.GetItemChecked(i) == true)
+                    {
+                        //MessageBox.Show("This is the value of ceckhed Item " + checkedListBox1.Items[i].ToString());
+                        selWeb = checkedListBox1.Items[i].ToString();
+                    }
+                }
+                //Console.WriteLine(selWeb);
+                foreach (Site s in sm.Sites)
+                {
+                    foreach (Microsoft.Web.Administration.Application app in s.Applications)
+                    {
+                        if (s.Name == selWeb)
+                        {
+                            apps.Add(app.Path);
+                        }
+                    }
+                }
+                for (int i = 0; i < apps.Count; i++)
+                {
+                    //Console.WriteLine(apps[i]);
+                    if (apps[i] != "/" && apps != null)
+                    {
+                        string dir = sm.Sites[selWeb].Applications[apps[i]].VirtualDirectories["/"].PhysicalPath + "\\Web.config";
+                        entries.Add(dir);
+                    }
+                }
+
+                if (entries != null && entries.Count > 0)
+                {
+                    for (int i = 0; i < entries.Count; i++)
+                    {
+                        string[] spl = entries[i].Split('\\');
+                        //Create label
+                        Label label = new Label();
+                        label.Text = String.Format(spl[spl.Length - 2] + " - Web.config found.");
+                        label.Name = "lbl1" + i;
+                        label.AutoSize = true;
+                        //Position label on screen
+                        label.Left = 50;
+                        label.Top = (i + 2) * 22;
+                        label.ForeColor = System.Drawing.Color.Lavender;
+                        //Add controls to form
+                        secondPanel.Controls.Add(label);
+                        //label.ForeColor = System.Drawing.Color.Lavender;
+                    }
+                    if (xmlCombo.SelectedItem != null)
+                    {
+                        btnUpdate.Enabled = true;
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select the webiste from the list!");
+            }
+            //rep.Enabled = true;
+        }
+
+        private void checkedListBox1_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+                if (i != e.Index) checkedListBox1.SetItemChecked(i, false);
+        }
+
+        private void serviceSearch_Click(object sender, EventArgs e)
+        {
+            entries.Clear();
+            apps.Clear();
+            checkedListBox1.Items.Clear();
+            msgText.Visible = false;
+            exText.Text = "";
+            exText.Visible = false;
+            btnUpdate.Enabled = false;
+            lastClick = "windows";
+
+            //Searching for labels and removing them
+            int panelCount = secondPanel.Controls.Count;
+            for (int i = 0; i < panelCount; i++)
+            {
+                if (secondPanel.Controls.ContainsKey("lbl1" + i))
+                {
+                    System.Windows.Forms.Control[] ad = new System.Windows.Forms.Control[1];
+                    ad = secondPanel.Controls.Find("lbl1" + i, true);
+                    ad[0].Dispose();
+                }
+            }
+
+            for (int i = 0; i < services.Count; i++)
+            {
+                ServiceController ctl = ServiceController.GetServices().FirstOrDefault(s => s.ServiceName == services[i]);
+                if (ctl != null)
+                {
+                    using (ManagementObject wmiService = new ManagementObject("Win32_Service.Name='" + services[i] + "'"))
+                    {
+                        wmiService.Get();
+                        string currentserviceExePath = wmiService["PathName"].ToString() + ".config";
+                        currentserviceExePath = currentserviceExePath.Replace("\"", "");
+                        entries.Add(currentserviceExePath);
+                    }
+                }
+                else
+                {
+                    entries.Add(services[i]);
+                }
+            }
+
+            if (entries != null && entries.Count > 0)
+            {
+                for (int i = 0; i < entries.Count; i++)
+                {
+                    //Create label
+                    Label label = new Label();
+                    if (entries[i] != services[i])
+                    {
+                        string[] spl = entries[i].Split('\\');
+                        label.Text = String.Format(spl[spl.Length - 2] + " - Web.config found.");
+                    }
+                    else
+                    {
+                        label.Text = entries[i] + " not installed.";
+                    }
+                    label.Name = "lbl1" + i;
+                    label.AutoSize = true;
+                    //Position label on screen
+                    label.Left = 50;
+                    label.Top = (i + 2) * 22;
+                    label.ForeColor = System.Drawing.Color.Lavender;
+                    //Button btn = new Button();
+                    //btn.Text = String.Format("Replace");
+                    //btn.Name = "btn1" + i;
+                    //btn.Left = 240;
+                    //btn.Top = (i + 1) * 22;
+                    //Create textbox
+                    //TextBox textBox = new TextBox();
+                    //Position textbox on screen
+                    //textBox.Left = 120;
+                    //textBox.Top = (i + 1) * 20;
+                    ///Add controls to form
+                    secondPanel.Controls.Add(label);
+                    //this.Controls.Add(btn);
+                    //this.Controls.Add(textBox);
+                }
+                if (xmlCombo.SelectedItem != null)
+                {
+                    btnUpdate.Enabled = true;
+                }
+            }
+        }
+
+        private void OnMouseEnterButton1(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            if (btn != btnHover)
+                btn.BackColor = Color.Azure; // or Color.Red or whatever you want
+        }
+
+        private void OnMouseLeaveButton1(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            if (btn != btnHover)
+                btn.BackColor = SystemColors.ButtonFace;
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("MONETA Config Easy Update v 2.0\n" + "Danish Rehan\n" + "TPS - Copyright 2019-20");
         }
     }
 }

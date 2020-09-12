@@ -1,22 +1,24 @@
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\bin\Debug\XML String Changer.exe.config
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\bin\Debug\XML String Changer.exe
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\bin\Debug\XML String Changer.pdb
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\bin\Debug\Microsoft.WindowsAPICodePack.dll
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\bin\Debug\Microsoft.WindowsAPICodePack.xml
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debug\Connection_String.Form1.resources
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML_String_Changer.Properties.Resources.resources
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.csproj.GenerateResource.cache
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.csproj.CoreCompileInputs.cache
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.csproj.CopyComplete
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.exe
-C:\Users\Danish.Rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.pdb
-C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.csprojAssemblyReference.cache
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\NLog.config
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\MONETA Config Updater.exe.config
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\MONETA Config Updater.exe
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\MONETA Config Updater.pdb
 C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\Microsoft.Web.Administration.dll
 C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\Microsoft.Win32.Registry.dll
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\Microsoft.WindowsAPICodePack.dll
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\NLog.dll
 C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\System.Diagnostics.DiagnosticSource.dll
 C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\System.Reflection.TypeExtensions.dll
 C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\System.Security.Principal.Windows.dll
 C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\System.ServiceProcess.ServiceController.dll
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\Microsoft.WindowsAPICodePack.xml
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\NLog.xml
 C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\obj\Debug\Connection_String.Form1.resources
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\obj\Debug\MONETA_Config_Updater.Properties.Resources.resources
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.csproj.GenerateResource.cache
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.csproj.CoreCompileInputs.cache
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\obj\Debug\XML String Changer.csproj.CopyComplete
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\obj\Debug\MONETA Config Updater.exe
+C:\Users\danish.rehan\source\repos\XML String Changer\Connection String\obj\Debug\MONETA Config Updater.pdb
