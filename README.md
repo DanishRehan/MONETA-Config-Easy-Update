@@ -1,2 +1,3 @@
-# XML-String-Changer
-Change strings inside xml
+# Moneta Config Easy Update
+
+One click configuration updater
